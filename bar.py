@@ -2,21 +2,37 @@ import os
 
 spacing = 1
 labelNum = 10
+pareto = True
 
 data = [
     {
-        "name": "ninth",
-        "num": 24.3
+        "name": "murder",
+        "num": 2.6
     },
     {
-        "name": "graduate",
-        "num": 41.4
+        "name": "rape",
+        "num": 33.4
     },
     {
-        "name": "wowthatsgreat",
-        "num": 102
+        "name": "robbery",
+        "num": 93.3
+    },
+    {
+        "name": "house burglary",
+        "num": 911.7
+    },
+    {
+        "name": "motor vehicle theft",
+        "num": 550.7
+    },
+    {
+        "name": "assault",
+        "num": 125.3
     }
 ]
+
+if (pareto):
+    data.sort(key=lambda x: x["num"], reverse=True)
 
 biggest = len(max(data, key=lambda x: len(x["name"]))["name"]) + spacing
 
