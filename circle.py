@@ -38,7 +38,7 @@ data = [
 labels = ["a", "b", "c", "d"]
 ranges = [0 for _ in range(0, len(data) + 1)]
 for i, d in enumerate(data):
-    ranges[i + 1] = ranges[i] + ((d["num"] / 100) * math.tau)
+    ranges[i + 1] = ranges[i] + d["num"] / 100 * math.tau
     ranges[i] -= math.pi
 ranges[len(ranges) - 1] -= math.pi
 
@@ -47,22 +47,19 @@ radius = min(os.get_terminal_size().columns / 2, os.get_terminal_size().lines) /
 
 for y in range(0, len(screen)):
     for x in range(0, len(screen[0])):
-        vec = Vec(x - (len(screen[0]) / 2), y - (len(screen) / 2))
+        vec = Vec(x - len(screen[0]) / 2, y - len(screen) / 2)
         if vec.get_magnitude() < radius:
             screen[y][x] = checkness(vec.get_angle())
 
 for i in range(0, len(ranges) - 1):
     biggest = (0, 0)
     for j, l in enumerate(screen):
-        count = 0
-        for c in l:
-            if c == fills[i]:
-                count += 1
+        count = len(list(filter(lambda x: x == fills[i], l)))
         biggest = max(biggest, (count, j), key=lambda x: x[0])
+
     start = screen[biggest[1]].index(fills[i])
     for j, c in enumerate(data[i]["name"]):
-        screen[biggest[1]][start + j + round((biggest[1] / 2))] = c
-
+        screen[biggest[1]][start + j + round(biggest[1] / 2)] = c
 
 
 for l in screen:
