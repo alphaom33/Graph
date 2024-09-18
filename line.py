@@ -11,7 +11,7 @@ screenSize = [os.get_terminal_size().columns - leftWidth, os.get_terminal_size()
 data = [
     {
         "x": 1,
-        "y": 3817
+        "y": 317
     },
     {
         "x": 2,
@@ -99,7 +99,7 @@ for d in data:
             what = (slope * (i - last[0])) + last[1]
             newY = (len(screen) - 1) - round(what)
             if (screen[newY - up][i + leftWidth] != "*"):
-                screen[newY - up][i + leftWidth] = "/" if slope > 0 else "\\" if slope < -0 else "-"
+                screen[newY - up][i + leftWidth] = "/" if slope > 0.1 else "\\" if slope < -0.1 else "-"
     
     screen[(len(screen) - 1) - round(y + up)][round(x + leftWidth)] = "*"
     last = [x, y]
