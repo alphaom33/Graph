@@ -2,7 +2,7 @@ import os
 
 numTicks = 5
 
-data = [1, 1.4, 2, 1, 4, 5]
+data = [1, 1.5, 2, 1, 4, 5]
 screen = [[" " for j in range(0, os.get_terminal_size().columns)] for i in range(0, os.get_terminal_size().lines)]
 
 poses = []
@@ -22,7 +22,7 @@ for i in range(0, len(screen[0])):
 
 for d in data:
   for i, p in enumerate(poses):
-    if p[1] - (tickSize / 2) <= d and d < p[1] + (tickSize / 2):
+    if p[1] - (tickSize / 2) < d and d <= p[1] + (tickSize / 2):
       poses[i][2] += 1
 
 for p, _, v in poses:
