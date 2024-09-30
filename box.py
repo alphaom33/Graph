@@ -2,7 +2,7 @@ import os
 import statistics
 import math
 
-data = [1, 3, 4, 5, 9]
+data = [1, 3, 4, 5, 20]
 
 numTicks = 5
 
@@ -29,10 +29,10 @@ def draw_bar(pos):
   height = (len(screen) - 2) / 4
   half = (len(screen) - 2) / 2
   for y in range(int(half - height), int(half + height)):
-    screen[y][int(pos / max * len(screen[0])) - 2] = "|"
+    screen[y][int(pos / max * (len(screen[0]) - tickDst) + (tickDst / 2)) - 2] = "|"
 
 def draw_line(pos1, pos2, height):
-  for x in range(math.ceil(pos1 / max * len(screen[0])) - 2, int(pos2 / max * len(screen[0])) - 2):
+  for x in range(math.ceil(pos1 / max * (len(screen[0]) - tickDst) + (tickDst / 2)) - 2, int(pos2 / max * (len(screen[0]) - tickDst) + (tickDst / 2)) - 2):
     screen[int(height)][x] = "-"
     
 def draw_between(pos1, pos2):
