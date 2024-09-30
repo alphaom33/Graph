@@ -1,5 +1,6 @@
 import os
 from enum import Enum
+import scale
 
 spacing = 1
 labelNum = 10
@@ -59,12 +60,18 @@ biggest = len(max(data, key=lambda x: len(x["name"]))["name"]) + spacing
 maximum = max(data, key=lambda x: x["num"])["num"]
 size = (os.get_terminal_size().columns - biggest) / maximum
 
-dst = (os.get_terminal_size().columns - biggest) / labelNum
-print((" " * biggest) + "0" + (" " * (round(dst) - 1)), end="")
-for i in range(1, labelNum):
-    toPrint = str(round(maximum / labelNum * i, 2))
-    print(toPrint + (" " * (round(dst) - len(toPrint))), end="")
-print("")
+screen = [[" " for i in range(0, os.get_terminal_size().columns)] for j in range(0, 2)]
+scale.draw_scale(screen, list(map(lambda x: x["num"], data)), labelNum, draw_line=False, invert=True)
+for li in screen:
+    for c in li:
+        print(c, end="")
+
+# dst = (os.get_terminal_size().columns - biggest) / labelNum
+# print((" " * biggest) + "0" + (" " * (round(dst) - 1)), end="")
+# for i in range(1, labelNum):
+#     toPrint = str(round(maximum / labelNum * i, 2))
+#     print(toPrint + (" " * (round(dst) - len(toPrint))), end="")
+# print("")
 
 for d in data:
     ms = d["num"]

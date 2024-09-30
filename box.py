@@ -1,6 +1,7 @@
 import os
 import statistics
 import math
+import scale
 
 data = [1, 3, 4, 5, 20]
 
@@ -8,16 +9,18 @@ numTicks = 5
 
 screen = [[" " for i in range(0, os.get_terminal_size().columns)] for j in range(0, os.get_terminal_size().lines)]
 
-tickDst = len(screen[0]) / numTicks
-tickSize = (max(data) - min(data)) / (numTicks - 1)
-for i in range(0, numTicks):
-  pos = int(i * tickDst + (tickDst / 2))
-  num = round(tickSize * i + min(data), 1)
-  for j, c in enumerate(str(num)):
-    screen[len(screen) - 1][pos + j - round(len(str(num)) / 2)] = c
+# tickDst = len(screen[0]) / numTicks
+# tickSize = (max(data) - min(data)) / (numTicks - 1)
+# for i in range(0, numTicks):
+#   pos = int(i * tickDst + (tickDst / 2))
+#   num = round(tickSize * i + min(data), 1)
+#   for j, c in enumerate(str(num)):
+#     screen[len(screen) - 1][pos + j - round(len(str(num)) / 2)] = c
 
-for i in range(0, len(screen[0])):
-  screen[len(screen) - 2][i] = "-"
+# for i in range(0, len(screen[0])):
+#   screen[len(screen) - 2][i] = "-"
+
+tickDst = scale.draw_scale(screen, data, numTicks)[0]
 
 min = min(data)
 med = statistics.median(data)

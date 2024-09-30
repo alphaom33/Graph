@@ -1,4 +1,5 @@
-import os;
+import os
+import scale
 
 leftScale = 5
 leftWidth = 4
@@ -113,16 +114,17 @@ for i in range(0, leftScale):
 for i in range (0, height):
     screen[i][leftWidth] = "|"
 
-width = os.get_terminal_size().columns
-for i in range(leftWidth, width):
-    screen[os.get_terminal_size().lines - 2][i] = "-"
+scale.draw_scale(screen, list(map(lambda x: x["x"], data)), bottomScale, start=leftWidth)
+# width = os.get_terminal_size().columns
+# for i in range(leftWidth, width):
+#     screen[os.get_terminal_size().lines - 2][i] = "-"
 
-numSize = width / bottomScale
-for i in range(0, bottomScale):
-    toPrint = str(round(maxes[0] / bottomScale * i))
-    toPrint += " " * (round(len(toPrint) - numSize))
-    screen[os.get_terminal_size().lines - 1][round(numSize * i) + 1] = toPrint
+# numSize = width / bottomScale
+# for i in range(0, bottomScale):
+#     toPrint = str(round(maxes[0] / bottomScale * i))
+#     toPrint += " " * (round(len(toPrint) - numSize))
+#     screen[os.get_terminal_size().lines - 1][round(numSize * i) + 1] = toPrint
 
-for l in screen:
-    for c in l:
+for li in screen:
+    for c in li:
         print(c, end="")
