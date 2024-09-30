@@ -10,7 +10,7 @@ class Type(Enum):
     PARETO = 1
     HISTOGRAM = 2
 
-type = Type.HISTOGRAM
+type = Type.NOTHING
 
 data = [
     {
@@ -61,19 +61,13 @@ maximum = max(data, key=lambda x: x["num"])["num"]
 size = (os.get_terminal_size().columns - biggest) / maximum
 
 screen = [[" " for i in range(0, os.get_terminal_size().columns)] for j in range(0, 2)]
-scale.draw_scale(screen, list(map(lambda x: x["num"], data)), labelNum, draw_line=False, invert=True)
-for li in screen:
-    for c in li:
-        print(c, end="")
-
-# dst = (os.get_terminal_size().columns - biggest) / labelNum
-# print((" " * biggest) + "0" + (" " * (round(dst) - 1)), end="")
-# for i in range(1, labelNum):
-#     toPrint = str(round(maximum / labelNum * i, 2))
-#     print(toPrint + (" " * (round(dst) - len(toPrint))), end="")
-# print("")
+scale.draw_scale(screen, list(map(lambda x: x["num"], data)), labelNum, start=biggest - 2, draw_line=False, invert=True)
 
 for d in data:
     ms = d["num"]
     ms_bar = round(ms * size)
-    print(d["name"] + " " * (biggest - len(d["name"])) + "*" * ms_bar)
+    screen.append(d["name"] + " " * (biggest - len(d["name"])) + "*" * ms_bar + "\n")
+
+for li in screen:
+    for c in li:
+        print(c, end="")
